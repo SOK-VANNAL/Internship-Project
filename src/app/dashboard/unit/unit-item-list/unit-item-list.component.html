@@ -12,7 +12,7 @@
       <tr *ngFor="let data of basicTable.data; let indexOfelement = index;">
         <td>{{ indexOfelement + 1 + index}}</td>
         <!-- <td> <a href="">{{ data.name }}</a></td> -->
-        <td><app-view-modal [item]="data"></app-view-modal></td>
+        <td><app-view-modal [item]="data" (productUpdated)="updateProduct()"></app-view-modal></td>
         <td></td>
         <td [nzAlign]="'right'">
           <app-edit-modal [item]="data" (productUpdated)="updateProduct()"></app-edit-modal>

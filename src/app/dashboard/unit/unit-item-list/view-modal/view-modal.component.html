@@ -1,0 +1,46 @@
+<!-- <button nz-button nzType="primary" (click)="createCustomButtonModal()">Custom Button</button> -->
+<!-- <button nz-button nzType="primary" (click)="createTplModal(tplTitle, tplContent, tplFooter)">
+  <span>Template</span>
+</button> -->
+<a (click)="createTplModal(tplTitle, tplContent, tplFooter)">{{item.name}}</a>
+<ng-template #tplTitle let-ref="modalRef">
+  <div style="display: flex; justify-content: space-between;">
+    <span>ពិនិត្យទំនិញ</span>
+    <div>
+      <a (click)="onChangeEditStatus()" [ngStyle]="{color: isEdit ? '#1890FF' : 'gray'}"><i nz-icon nzType="edit" nzTheme="outline"></i>កែប្រែ</a>
+      <nz-divider nzType="vertical"></nz-divider>
+      <a style="color: red;" (click)="onChangeDeleteStatus()" [ngStyle]="{color: isDelete ? 'red' : 'gray'}"><i nz-icon nzType="delete" nzTheme="outline"></i>លុប</a>
+    </div>
+  </div>
+</ng-template>
+<ng-template #tplContent let-params>
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="name">ឈ្មោះ</nz-form-label>
+      <nz-form-control [nzSpan]="20" *ngIf="!isDelete">
+        <input nz-input name="name" [(ngModel)]="name" [disabled]="!isEdit"/>
+      </nz-form-control>
+      <nz-form-control [nzSpan]="20" *ngIf="isDelete">
+        <input nz-input name="name" [value]="deleteName" disabled/>
+      </nz-form-control>
+    </nz-form-item >
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="note">ចំណាំ/សម្កាល់</nz-form-label>
+      <nz-form-control [nzSpan]="20" *ngIf="!isDelete">
+        <textarea nz-input [nzAutosize]="{ minRows: 3, maxRows: 5 }" name="note" [(ngModel)]="note" [disabled]="!isEdit"></textarea>
+      </nz-form-control>
+      <nz-form-control [nzSpan]="20" *ngIf="isDelete">
+        <textarea nz-input [nzAutosize]="{ minRows: 3, maxRows: 5 }" name="note" [(ngModel)]="deleteNote"></textarea>
+      </nz-form-control>
+    </nz-form-item >
+  </form>
+</ng-template>
+<ng-template #tplFooter let-ref="modalRef">
+  <button nz-button (click)="onCancel(ref)">បោះបង់</button>
+  <button nz-button nzType="primary" (click)="onEdit(ref)" [nzLoading]="tplModalButtonLoading" *ngIf="isEdit">
+    រក្សាទុក
+  </button>
+  <button nz-button nzType="primary" (click)="onDelete(ref)" [nzLoading]="tplModalButtonLoading" *ngIf="isDelete" nzDanger>
+    លុប
+  </button>
+</ng-template>

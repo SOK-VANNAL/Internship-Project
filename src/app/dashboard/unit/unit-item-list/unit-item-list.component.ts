@@ -40,11 +40,20 @@ export class UnitItemListComponent implements OnInit {
     this.getUnitItem();
     this.parentSubject?.subscribe(event=>{
       this.getUnitItem();
-    })
+    });
+    this.sortData();
   }
 
   onPageIndexChange(data:any){
     this.index = (data-1)*10
+  }
+
+  sortData(){
+    this.productService.sortUnitItem(1, 25, 'name').subscribe(
+      (result)=>{
+        console.log(result)
+      }
+    )
   }
 
 }

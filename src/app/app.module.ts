@@ -48,7 +48,7 @@ import { UnitItemListComponent } from './dashboard/unit/unit-item-list/unit-item
 import { EditModalComponent } from './dashboard/unit/unit-item-list/edit-modal/edit-modal.component';
 import { DeleteModalComponent } from './dashboard/unit/unit-item-list/delete-modal/delete-modal.component';
 import { AddModalComponent } from './dashboard/unit/add-modal/add-modal.component';
-import { ViewModalComponent } from './dashboard/unit/view-modal/view-modal.component';
+import { ViewModalComponent } from './dashboard/unit/unit-item-list/view-modal/view-modal.component';
 
 const icons: IconDefinition[] = [ 
   AccountBookFill, 

@@ -19,6 +19,7 @@ export class EditModalComponent implements OnInit {
   }
   ngOnInit(){
     this.name = this.item.name
+    this.note = this.item.note
   }
 
   showModal(): void {

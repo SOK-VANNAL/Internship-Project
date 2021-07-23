@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { stringify } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +33,9 @@ export class ProductService {
 
   addUnitItem(name:string, note:string){
     return this.http.post("https://sale-api.sgx.bz/api/Unit", {name, note});
+  };
+
+  sortUnitItem(pageNumber:number, pageSize:number, sort:string){
+    return this.http.get(`https://sale-api.sgx.bz/api/unit?pageIndex=${pageNumber}&pageSize=${pageSize}&Sorts=${sort}&filters=`);
   }
 }

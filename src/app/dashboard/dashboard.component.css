@@ -1,0 +1,85 @@
+
+.trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+.logo {
+  height: 48px;
+  background: #1976D3;
+  line-height: 48px;
+  overflow: hidden;
+  padding-left: 24px;
+}
+
+.logo .link{
+  color: white;
+  position: relative;
+  left: 50px;
+}
+
+.logo img{
+  height: 32px;
+  width: 32px;
+}
+
+.logo span{
+  color: white;
+  margin-left: 20px;
+
+}
+
+
+nz-header {
+  background: #fff;
+  padding: 0;
+}
+
+nz-content {
+  margin: 0 16px;
+}
+
+nz-breadcrumb {
+  margin: 16px 0;
+}
+
+.inner-content {
+  padding: 24px;
+  background: #fff;
+  min-height: 90%;
+}
+
+nz-footer {
+  text-align: center;
+}
+
+nz-layout{
+  height: 100%;
+}
+
+a{
+  color: black;
+}
+
+nz-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 48px;
+}
+.user-icon{
+  font-size: 24px;
+  margin-right: 10px;
+  color: #1890FF;
+}
+
+.active{
+  color: #1890FF;
+}

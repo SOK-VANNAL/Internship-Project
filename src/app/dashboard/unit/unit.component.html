@@ -1,0 +1,18 @@
+<div class="unit">  
+    <div class="header">
+        <div nz-col [nzSpan]="4">
+            <nz-input-group [nzSuffix]="suffixIconSearch">
+                <input type="text" nz-input placeholder="ស្វែងរក" />
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+                <i nz-icon nzType="search"></i>
+            </ng-template>
+        </div>
+        <div>
+            <app-add-modal (productAdded)= "notifyChildren()"></app-add-modal>
+        </div>
+    </div>
+    <div class="list">
+       <app-unit-item-list [parentSubject]="parentSubject"></app-unit-item-list>
+    </div>
+</div>  

@@ -1,0 +1,33 @@
+
+    <!-- <button nz-button nzType="primary" (click)="showModal()">
+      <span>Show Modal</span>
+    </button> -->
+    <a (click)="showModal()"><i nz-icon nzType="edit" nzTheme="outline"></i>កែប្រែ</a>
+    <nz-modal
+      [(nzVisible)]="isVisible"
+      nzTitle="កែប្រែឈ្មោះទំនិញ"
+      (nzOnCancel)="handleCancel()"
+      (nzOnOk)="handleOk()"
+      [nzOkLoading]="isOkLoading"
+      nzCancelText="បោះបង់"
+      nzOkText="រក្សាទុក"
+      nzWidth="600px"
+    >
+    <div *nzModalContent>
+      <form nz-form>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6" nzFor="name">ឈ្មោះ</nz-form-label>
+          <nz-form-control [nzSpan]="20">
+            <input nz-input [(ngModel)]="name" name="name"/>
+          </nz-form-control>
+        </nz-form-item >
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6" nzFor="note">ចំណាំ/សម្កាល់</nz-form-label>
+          <nz-form-control [nzSpan]="20">
+            <textarea nz-input [nzAutosize]="{ minRows: 3, maxRows: 5 }" [(ngModel)]="note" name="note"></textarea>
+          </nz-form-control>
+        </nz-form-item >
+      </form>
+    </div>
+    </nz-modal>
+  

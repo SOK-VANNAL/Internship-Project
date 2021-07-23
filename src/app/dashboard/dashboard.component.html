@@ -1,0 +1,59 @@
+
+<nz-layout>
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzWidth]="'250px'" [nzTheme]="'light'">
+    <div class="logo">
+      <a href="">
+        <img src="../../assets/image/ed550428-804e-47e1-97ed-9ec15b792d85.jpg" alt="">
+        <span>DEMO08 Inc.</span>
+      </a>
+      <a href="" class="link">
+        <i nz-icon nzType="link" nzTheme="outline"></i>
+      </a>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzTheme]="'light'">
+      <li nz-submenu nzTitle="កាលក់" nzIcon="book">
+        <ul>
+          <li nz-menu-item>Tom</li>
+          <li nz-menu-item>Bill</li>
+          <li nz-menu-item>Alex</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="ទំនិញ" nzIcon="shopping-cart" routerLinkActive="active">
+        <ul>
+          <li nz-menu-item>ទំនិញ</li>
+          <li nz-menu-item routerLink="/">ប្រភេទទំនិញ</li>
+          <a routerLink="setting/unit" routerLinkActive="active"><li nz-menu-item>ឯកតា</li></a>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="ការកំណត់" nzIcon="snippets">
+        <ul>
+          <li nz-menu-item>Team 1</li>
+          <li nz-menu-item>Team 2</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="របាយការណ៏" nzIcon="database">
+        <ul>
+          <li nz-menu-item>Team 1</li>
+          <li nz-menu-item>Team 2</li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <i
+        class="trigger"
+        nz-icon
+        [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+        (click)="isCollapsed = !isCollapsed"
+      ></i>
+      <a href=""><i nz-icon nzType="user" nzTheme="outline" class="user-icon"></i></a>
+    </nz-header>
+    <nz-content>
+      <nz-breadcrumb>
+      </nz-breadcrumb>
+      <router-outlet></router-outlet>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
+  

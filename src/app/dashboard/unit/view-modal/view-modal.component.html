@@ -1,0 +1,37 @@
+<!-- <button nz-button nzType="primary" (click)="createCustomButtonModal()">Custom Button</button> -->
+<!-- <button nz-button nzType="primary" (click)="createTplModal(tplTitle, tplContent, tplFooter)">
+  <span>Template</span>
+</button> -->
+<a (click)="createTplModal(tplTitle, tplContent, tplFooter)">{{item.name}}</a>
+<ng-template #tplTitle>
+  <div style="display: flex; justify-content: space-between;">
+    <span>ពិនិត្យទំនិញ</span>
+    <div>
+      <a><i nz-icon nzType="edit" nzTheme="outline"></i>កែប្រែ</a>
+      <nz-divider nzType="vertical"></nz-divider>
+      <a style="color: red;"><i nz-icon nzType="delete" nzTheme="outline"></i>លុប</a>
+    </div>
+  </div>
+</ng-template>
+<ng-template #tplContent let-params>
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="name">ឈ្មោះ</nz-form-label>
+      <nz-form-control [nzSpan]="20">
+        <input nz-input name="name" [value]="item.name" disabled/>
+      </nz-form-control>
+    </nz-form-item >
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="note">ចំណាំ/សម្កាល់</nz-form-label>
+      <nz-form-control [nzSpan]="20">
+        <textarea nz-input [nzAutosize]="{ minRows: 3, maxRows: 5 }" name="note" [value]="item.note" disabled></textarea>
+      </nz-form-control>
+    </nz-form-item >
+  </form>
+</ng-template>
+<ng-template #tplFooter let-ref="modalRef">
+  <button nz-button (click)="ref.destroy()">បោះបង់</button>
+  <!-- <button nz-button nzType="primary" (click)="destroyTplModal(ref)" [nzLoading]="tplModalButtonLoading">
+    Close after submit
+  </button> -->
+</ng-template>

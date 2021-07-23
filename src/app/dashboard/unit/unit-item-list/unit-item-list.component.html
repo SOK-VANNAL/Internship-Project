@@ -1,0 +1,26 @@
+<br>
+<nz-table #basicTable [nzData]="listOfProducts" (nzPageIndexChange)="onPageIndexChange($event)">
+    <thead>
+      <tr>
+        <th nzWidth="15%">#</th>
+        <th nzWidth="30%" [nzSortFn]="sortFn">ឈ្មោះ</th>
+        <th nzWidth="30%">ចំណាំ/សម្កាល់</th>
+        <th nzWidth="15%"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data; let indexOfelement = index;">
+        <td>{{ indexOfelement + 1 + index}}</td>
+        <!-- <td> <a href="">{{ data.name }}</a></td> -->
+        <td><app-view-modal [item]="data"></app-view-modal></td>
+        <td></td>
+        <td [nzAlign]="'right'">
+          <app-edit-modal [item]="data" (productUpdated)="updateProduct()"></app-edit-modal>
+          <!-- <a><i nz-icon nzType="edit" nzTheme="outline"></i>កែប្រែ</a> -->
+          <nz-divider nzType="vertical"></nz-divider>
+          <app-delete-modal [item]="data" (productDeleted) = "updateProduct()"></app-delete-modal>
+          <!-- <a style="color: red;"><i nz-icon nzType="delete" nzTheme="outline"></i>លុប</a> -->
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>

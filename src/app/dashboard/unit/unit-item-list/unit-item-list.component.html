@@ -1,16 +1,17 @@
 <br>
-<nz-table #basicTable [nzData]="listOfProducts" (nzPageIndexChange)="onPageIndexChange($event)">
+<nz-table #basicTable [nzData]="listOfProducts" (nzPageIndexChange)="onPageIndexChange($event)" [nzFrontPagination]="false" [nzLoading]="loading"
+[nzTotal]="param.rowCount" [(nzPageIndex)]="param.pageIndex" [(nzPageSize)]="param.pageSize">
     <thead>
       <tr>
         <th nzWidth="15%">#</th>
-        <th nzWidth="30%" [nzSortFn]="sortFn">ឈ្មោះ</th>
+        <th nzWidth="30%" (nzSortOrderChange)="sortData($event)" [nzSortFn]="true">ឈ្មោះ</th>
         <th nzWidth="30%">ចំណាំ/សម្កាល់</th>
         <th nzWidth="15%"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of basicTable.data; let indexOfelement = index;">
-        <td>{{ indexOfelement + 1 + index}}</td>
+        <td>{{ indexOfelement + 1 + order}}</td>
         <!-- <td> <a href="">{{ data.name }}</a></td> -->
         <td><app-view-modal [item]="data" (productUpdated)="updateProduct()"></app-view-modal></td>
         <td></td>

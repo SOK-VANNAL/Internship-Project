@@ -20,6 +20,12 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
+import { NzCascaderModule } from 'ng-zorro-antd/cascader';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 
 
 import { IconDefinition } from '@ant-design/icons-angular';
@@ -39,16 +45,23 @@ import {
   PlusOutline, 
   EditOutline, 
   DeleteOutline,
-  MinusCircleOutline } from '@ant-design/icons-angular/icons';
+  MinusCircleOutline,
+  SearchOutline, 
+  DownOutline,
+  ArrowLeftOutline } from '@ant-design/icons-angular/icons';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { UnitComponent } from './dashboard/unit/unit.component';
-import { UnitItemListComponent } from './dashboard/unit/unit-item-list/unit-item-list.component';
-import { EditModalComponent } from './dashboard/unit/unit-item-list/edit-modal/edit-modal.component';
-import { DeleteModalComponent } from './dashboard/unit/unit-item-list/delete-modal/delete-modal.component';
-import { AddModalComponent } from './dashboard/unit/add-modal/add-modal.component';
-import { ViewModalComponent } from './dashboard/unit/unit-item-list/view-modal/view-modal.component';
+import { UnitComponent } from './dashboard/product/unit/unit.component';
+import { UnitItemListComponent } from './dashboard/product/unit/unit-item-list/unit-item-list.component';
+import { EditModalComponent } from './dashboard/product/unit/unit-item-list/edit-modal/edit-modal.component';
+import { DeleteModalComponent } from './dashboard/product/unit/unit-item-list/delete-modal/delete-modal.component';
+import { AddModalComponent } from './dashboard/product/unit/add-modal/add-modal.component';
+import { ViewModalComponent } from './dashboard/product/unit/unit-item-list/view-modal/view-modal.component';
+import { ItemComponent } from './dashboard/product/item/item.component';
+import { ItemAddComponent } from './dashboard/product/item/item-add/item-add.component';
+import { ItemTypeSelectorComponent } from './dashboard/product/item/item-add/item-type-selector/item-type-selector.component';
+import { UnitSelectorComponent } from './dashboard/product/item/item-add/unit-selector/unit-selector.component';
 
 const icons: IconDefinition[] = [ 
   AccountBookFill, 
@@ -65,7 +78,10 @@ const icons: IconDefinition[] = [
   PlusOutline, 
   EditOutline,
   DeleteOutline,
-  MinusCircleOutline ];
+  MinusCircleOutline,
+  SearchOutline,
+  DownOutline,
+  ArrowLeftOutline ];
 
 @NgModule({
   declarations: [
@@ -77,6 +93,10 @@ const icons: IconDefinition[] = [
     DeleteModalComponent,
     AddModalComponent,
     ViewModalComponent,
+    ItemComponent,
+    ItemAddComponent,
+    ItemTypeSelectorComponent,
+    UnitSelectorComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,6 +118,12 @@ const icons: IconDefinition[] = [
     NzDividerModule,
     NzModalModule,
     NzFormModule,
+    NzAutocompleteModule,
+    NzCascaderModule,
+    NzSelectModule,
+    NzSpinModule,
+    NzCheckboxModule,
+    NzInputNumberModule,
     NzIconModule.forRoot(icons)
 
   ],

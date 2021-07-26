@@ -1,0 +1,20 @@
+<div nz-col [nzSpan]="nzSpan" [formGroup]="validateForm">
+    <nz-select nzShowSearch nzAllowClear [nzDropdownRender]="renderTemplate" (nzOpenChange)="onOpenChange()" formControlName="selectedUnitType">
+        <ng-container *ngFor="let item of unitItemTypes">
+            <nz-option [nzLabel]="item.name" [nzValue]="item.name"></nz-option>
+        </ng-container>
+        <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+            <i nz-icon nzType="loading" class="loading-icon"></i>
+            កំពុងដំណើរការ
+        </nz-option>
+        
+    </nz-select>
+    <ng-template #renderTemplate>
+        <div class="container" *ngIf="addButton">
+          <a class="add-item" (click)="onAdd()">
+            <i nz-icon nzType="plus"></i>
+            បន្ថែមថ្មី
+          </a>
+        </div>
+    </ng-template>
+</div>

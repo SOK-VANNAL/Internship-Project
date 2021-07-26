@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import{ ProductService} from '../../../service/product-service/product.service';
+import{ ProductService} from '../../../../service/product-service/product.service';
 import { Subject } from 'rxjs';
 
 interface item{

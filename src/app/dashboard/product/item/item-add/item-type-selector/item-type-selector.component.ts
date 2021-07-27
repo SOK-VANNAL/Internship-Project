@@ -122,6 +122,7 @@ export class ItemTypeSelectorComponent implements ControlValueAccessor, OnInit, 
           this.isOkLoading = false;
           this.isVisible = false;
           this.itemAddForm.reset();
+          this.indexPage = 1;
           this.getItemType(1, 25, '', '');
         },
         (err)=>{

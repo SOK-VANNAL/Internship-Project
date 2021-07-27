@@ -143,6 +143,7 @@ export class UnitSelectorComponent implements ControlValueAccessor, OnDestroy, O
           this.isOkLoading = false;
           this.isVisible = false;
           this.unitAddForm.reset();
+          this.indexPage = 1;
           this.getUnitType(1, 25, '','');
         },
         (err)=>{

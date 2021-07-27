@@ -28,7 +28,7 @@ export class ItemAddComponent implements OnInit {
       name: [null, [Validators.required]],
       description: [null, [Validators.required]],
       note: [null, [Validators.required]],
-      barCode: [null, [Validators.required]],
+      barCode: [null],
       unit: [null, [Validators.required]],
       originalPrice: [null, [Validators.required]],
       price: [null, [Validators.required]],

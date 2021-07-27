@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -38,11 +38,36 @@ export class ProductService {
     return this.http.get(`https://sale-api.sgx.bz/api/unit?pageIndex=${pageNumber}&pageSize=${pageSize}&Sorts=${sort}&filters=`);
   }
 
-  getItemType(){
-    return this.http.get('https://sale-api.sgx.bz/api/ItemType?pageIndex=1&pageSize=25&sorts=&filters=%5B%7B%22field%22:%22search%22,%22operator%22:%22contains%22,%22value%22:%22%22%7D%5D');
+  getUnitType(pageIndex:number, pageSize:number, sorts:string, value:string){
+    const filters ={
+      field: "search",
+      operator: "contains",
+      value: value
+    }
+    let params = new HttpParams()
+      .set('pageIndex', pageIndex)
+      .set('pageSize', pageSize)
+      .set('sorts', sorts)
+      .set('filters', JSON.stringify(filters))
+
+    return this.http.get("https://sale-api.sgx.bz/api/unit?", {params:params});
   }
 
-  getUnitType(){
-    return this.http.get('https://sale-api.sgx.bz/api/Unit?pageIndex=1&pageSize=25&sorts=&filters=%5B%7B%22field%22:%22search%22,%22operator%22:%22contains%22,%22value%22:%22%22%7D%5D');
+  getItemType(pageIndex:number, pageSize:number, sorts:string, value:string){
+    const filters ={
+      field: "search",
+      operator: "contains",
+      value: value
+    }
+    let params = new HttpParams()
+      .set('pageIndex', pageIndex)
+      .set('pageSize', pageSize)
+      .set('sorts', sorts)
+      .set('filters', JSON.stringify(filters))
+    return this.http.get('https://sale-api.sgx.bz/api/ItemType?', {params: params});
+  }
+
+  addItemType(name:string, note:string, itemType:string){
+    return this.http.post('https://sale-api.sgx.bz/api/ItemType', {name, note, itemType});
   }
 }

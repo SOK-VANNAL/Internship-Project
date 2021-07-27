@@ -1,20 +1,55 @@
 <div nz-col [nzSpan]="nzSpan" [formGroup]="validateForm">
-    <nz-select nzShowSearch nzAllowClear [nzDropdownRender]="renderTemplate" (nzOpenChange)="onOpenChange()" formControlName="selectedUnitType">
-        <ng-container *ngFor="let item of unitItemTypes">
-            <nz-option [nzLabel]="item.name" [nzValue]="item.name"></nz-option>
-        </ng-container>
+    <nz-select nzShowSearch nzAllowClear [nzDropdownRender]="renderTemplate" (nzOpenChange)="onOpenChange()" formControlName="selectedUnitType" (nzOnSearch)="onSearch($event)" [nzServerSearch]="true" (nzScrollToBottom)="onScrollToBottom()">
+        
         <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
             <i nz-icon nzType="loading" class="loading-icon"></i>
             កំពុងដំណើរការ
         </nz-option>
+        <ng-container *ngFor="let item of unitItemTypes">
+            <nz-option [nzLabel]="item.name" [nzValue]="item.name" *ngIf="!isLoading"></nz-option>
+        </ng-container>
+        <nz-option *ngIf="isNextDataLoading" nzDisabled nzCustomContent>
+            <i nz-icon nzType="loading" class="loading-icon"></i>
+            កំពុងដំណើរការ
+        </nz-option>
+        
         
     </nz-select>
     <ng-template #renderTemplate>
         <div class="container" *ngIf="addButton">
-          <a class="add-item" (click)="onAdd()">
+          <a class="add-item" (click)="showModal()">
             <i nz-icon nzType="plus"></i>
             បន្ថែមថ្មី
           </a>
         </div>
     </ng-template>
+    <div class="modal">
+        <nz-modal
+        [(nzVisible)]="isVisible"
+        nzTitle="បន្ថែមបឯកតា"
+        (nzOnCancel)="handleCancel()"
+        (nzOnOk)="handleOk()"
+        [nzOkLoading]="isOkLoading"
+        nzOkText="រក្សាទុក"
+        nzCancelText="បោះបង់"
+        [nzOkDisabled]="unitAddForm.invalid">
+    
+          <div *nzModalContent>
+              <form nz-form [formGroup]="unitAddForm">
+                  <nz-form-item>
+                      <nz-form-label [nzSpan]="7" nz-for="name" nzRequired>ឈ្មោះ</nz-form-label>
+                      <nz-form-control [nzSpan]="17">
+                          <input type="text" nz-input id="name" formControlName="name">
+                      </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                      <nz-form-label [nzSpan]="7" nz-for="note">ចំណាំ/សម្គាល់</nz-form-label>
+                      <nz-form-control [nzSpan]="17">
+                          <textarea id="note" nz-input formControlName="note" [nzAutosize]="{ minRows: 3, maxRows: 6 }"></textarea>
+                      </nz-form-control>
+                  </nz-form-item>
+              </form>
+          </div>
+        </nz-modal>
+    </div>    
 </div>

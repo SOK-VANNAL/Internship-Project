@@ -38,12 +38,20 @@ export class UnitSelectorComponent implements ControlValueAccessor, OnDestroy, O
   selectedUnitType:any="";
   isAlreadyClick:boolean=false;
   unitItemTypes:any=[];
-  isLoading:boolean=true
+  isLoading:boolean=true;
+  isNextDataLoading = false;
 
   validateForm!: FormGroup;
   subscriptions: Subscription[] = [];
   onChange: any = () => {};
   onTouched: any = () => {};
+
+  isVisible:boolean = false;
+  isOkLoading:boolean = false;
+  unitAddForm!: FormGroup;
+
+  indexPage:number = 1;
+  valueSearch:string="";
 
   constructor(private productService: ProductService, private fb:FormBuilder) { 
     this.validateForm = this.fb.group({
@@ -56,6 +64,11 @@ export class UnitSelectorComponent implements ControlValueAccessor, OnDestroy, O
         this.onTouched();
       })
     );
+
+    this.unitAddForm = this.fb.group({
+      name: [null, [Validators.required]],
+      note: [null]
+    })
   }
 
   ngOnInit(): void {
@@ -97,14 +110,20 @@ export class UnitSelectorComponent implements ControlValueAccessor, OnDestroy, O
     return this.validateForm.valid ? null : { profile: { valid: false } };
   }
 
-  onAdd(){
-    console.log('add')
+  showModal(){
+    this.isVisible = !this.isVisible;
   }
+
   onOpenChange(){
     if(!this.isAlreadyClick){
-      this.isLoading=true
       this.isAlreadyClick = true;
-      this.productService.getUnitType().subscribe(
+      this.getUnitType(1, 25, '','');
+    }
+  };
+
+  getUnitType(pageIndex:number, pageSize:number, sorts:string, value:string){
+    this.isLoading=true
+      this.productService.getUnitType(pageIndex, pageSize, sorts, value).subscribe(
         (result:any)=>{
           this.unitItemTypes = result.results
           this.isLoading = false
@@ -113,8 +132,53 @@ export class UnitSelectorComponent implements ControlValueAccessor, OnDestroy, O
           console.log(err)
         }
       )
-    }
   }
+
+  handleOk(){
+    if(this.unitAddForm.valid){
+      this.isOkLoading = true;
+      this.productService.addUnitItem(this.unitAddForm.value.name, this.unitAddForm.value.note).subscribe(
+        (result)=>{
+          console.log(result)
+          this.isOkLoading = false;
+          this.isVisible = false;
+          this.unitAddForm.reset();
+          this.getUnitType(1, 25, '','');
+        },
+        (err)=>{
+          console.log(err);
+        }
+      )}
+  }
+
+  handleCancel(): void{
+    this.isVisible = false;
+    this.unitAddForm.reset();
+  }
+
+  onSearch(value:string){
+    this.valueSearch=value
+    this.getUnitType(1, 25, '',value);
+    this.indexPage = 1;
+  }
+
+  onScrollToBottom(){
+    this.isNextDataLoading = true;
+    this.productService.getUnitType(++this.indexPage,25,'',this.valueSearch).subscribe(
+      (result:any) =>{
+        this.isNextDataLoading = false;
+        if(result.results.length>0){
+          result.results.forEach((item:any) =>{
+            this.unitItemTypes.push(item);
+          });
+        }
+      },
+      (err)=>{
+        console.log(err)
+      }
+    )
+  }
+
 }
 
 

@@ -31,11 +31,20 @@ export class ItemTypeSelectorComponent implements ControlValueAccessor, OnInit, 
   isAlreadyClick:boolean=false;
   itemTypes:any=[];
   isLoading:boolean=true
+  isNextDataLoading = false;
   
   validateForm!: FormGroup;
   subscriptions: Subscription[] = [];
   onChange: any = () => {};
   onTouched: any = () => {};
+
+  isVisible:boolean = false;
+  isOkLoading:boolean = false;
+  itemAddForm!: FormGroup;
+
+  indexPage:number = 1;
+  valueSearch:string="";
+
 
   constructor(private productService: ProductService, private fb: FormBuilder) { 
     this.validateForm = this.fb.group({
@@ -48,6 +57,13 @@ export class ItemTypeSelectorComponent implements ControlValueAccessor, OnInit, 
         this.onTouched();
       })
     );
+
+    this.itemAddForm = this.fb.group({
+      name: [null, [Validators.required]],
+      note: [null],
+      itemClass: [null, [Validators.required]]
+
+    })
   }
  
 
@@ -92,6 +108,36 @@ export class ItemTypeSelectorComponent implements ControlValueAccessor, OnInit, 
     return this.validateForm.valid ? null : { profile: { valid: false, } };
   }
 
+  showModal(){
+    this.isVisible = !this.isVisible;
+  }
+
+  handleOk(): void {
+
+    if(this.itemAddForm.valid){
+      this.isOkLoading = true;
+      this.productService.addItemType(this.itemAddForm.value.name, this.itemAddForm.value.note, this.itemAddForm.value.itemClass).subscribe(
+        (result)=>{
+          console.log(result)
+          this.isOkLoading = false;
+          this.isVisible = false;
+          this.itemAddForm.reset();
+          this.getItemType(1, 25, '', '');
+        },
+        (err)=>{
+          console.log(err);
+        }
+
+      )
+    }
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+    this.itemAddForm.reset();
+  }
+
+
   onAdd(){
     console.log('add')
     console.log(this.selectedItemTypeControl.touched)
@@ -100,8 +146,12 @@ export class ItemTypeSelectorComponent implements ControlValueAccessor, OnInit, 
   onOpenChange(){
     if(!this.isAlreadyClick){
       this.isAlreadyClick = true;
-      this.isLoading = true
-      this.productService.getItemType().subscribe(
+      this.getItemType(1, 25, '', '');
+    }
+  }
+  getItemType(pageIndex:number, pageSize:number, sorts:string, value:string){
+    this.isLoading = true
+      this.productService.getItemType(pageIndex, pageSize, sorts, value).subscribe(
         (result:any)=>{
           this.itemTypes = result.results;
           this.isLoading= false;
@@ -110,6 +160,29 @@ export class ItemTypeSelectorComponent implements ControlValueAccessor, OnInit, 
           console.log(err)
         }
       )
-    }
+  };
+
+  onSearch(value:string){
+    this.valueSearch=value
+    this.getItemType(1, 25, '',value);
+    this.indexPage = 1;
   }
+
+  onScrollToBottom(){
+    this.isNextDataLoading = true;
+    this.productService.getItemType(++this.indexPage,25,'',this.valueSearch).subscribe(
+      (result:any) =>{
+        this.isNextDataLoading = false;
+        if(result.results.length>0){
+          result.results.forEach((item:any) =>{
+            this.itemTypes.push(item);
+          });
+        }
+      },
+      (err)=>{
+        console.log(err)
+      }
+    )
+  }
+
 }
